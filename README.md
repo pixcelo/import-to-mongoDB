@@ -8,6 +8,9 @@
 python3 import.py
 ```
 
+## データ参照サンプル
+refer.py
+
 ## Reference
 - [BybitのWebSocketから約定履歴をデータベースに溜め込むスクリプト【pybotters】](https://note.com/mtkn1/n/n2ae191c70d37)
 - [Bybit API Document](https://bybit-exchange.github.io/docs/futuresV2/linear/#t-websocket)
