@@ -4,6 +4,8 @@ from typing import Any, Dict
 import motor.motor_asyncio
 import pybotters
 
+from loguru import logger
+
 class BybitMongoDB:
     def __init__(self):
         """
@@ -32,14 +34,17 @@ class BybitMongoDB:
 
 async def main():
     async with pybotters.Client() as client:
-        db = BybitMongoDB()
-        wstask = await client.ws_connect(
-            # inverse と USDT はWebSocketの購読URLが異なる
-            'wss://stream.bybit.com/realtime_public',
-            send_json={'op': 'subscribe', 'args': ['trade.BTCUSDT']},
-            hdlr_json=db.onmessage,
-        )
-        await wstask
+        try:
+            db = BybitMongoDB()
+            wstask = await client.ws_connect(
+                # inverse と USDT はWebSocketの購読URLが異なる
+                'wss://stream.bybit.com/realtime_public',
+                send_json={'op': 'subscribe', 'args': ['trade.BTCUSDT']},
+                hdlr_json=db.onmessage,
+            )
+            await wstask
+        except Exception as e:
+            logger.error(e)
 
 try:
     asyncio.run(main())
