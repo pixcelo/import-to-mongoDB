@@ -18,7 +18,7 @@ class BybitMongoDB:
         db = client['bybit']
         self.collection = db['USDT']
         self.queue = asyncio.Queue()
-        asyncio.create_task(self.consumer())
+        # asyncio.create_task(self.consumer())
 
     def onmessage(self, msg: Dict[str, Any], ws):
         if 'topic' in msg:
